@@ -1,0 +1,77 @@
+#This is config of Furniture Shop Plugin
+
+#Location of Preview Furniture and WorldGuard Region to define where shop area is
+Location:
+  #World guard Area defines where shop area is (where player able to LeftClick to open shop)
+  Region: FurnitureShop
+  #Location defines where Furniture preview is
+  Preview:
+    World: spawn
+    X: -196.5
+    Y: 71
+    Z: 237.5
+
+Items:
+  NextPage:
+    Item: LIME_STAINED_GLASS_PANE
+    Name: "&aNext Page"
+    Lore: []
+    ModelData: 0
+  PreviousPage:
+    Item: RED_STAINED_GLASS_PANE
+    Name: "&cPrevious Page"
+    Lore: []
+    ModelData: 0
+  Accept:
+    Item: LIME_STAINED_GLASS_PANE
+    Name: "&aAccept"
+    Lore: []
+    ModelData: 0
+  Deny:
+    Item: RED_STAINED_GLASS_PANE
+    Name: "&cDeny"
+    Lore: []
+    ModelData: 0
+
+Language:
+  #Hex color format is #ffffff
+  #Example: Price: #ff0000<price>
+  #Available Placeholder: <price>
+
+  #Lore in main shop
+  Shop-Lore:
+    - '&fราคา &e$<price>'
+    - ' '
+    - '&fคลิกซ้ายเพื่อดูตัวอย่างเฟอร์นิเจอร์'
+    - '&aกดย่อ&fและคลิกซ้าย&bเพื่อซื้อ'
+
+  #Lore in confirmation page
+  Confirmation-Lore:
+    - '&fราคา &e$<price>'
+    - ' '
+    - '&fนี่คือไอเท็มที่คุณต้องการซื้อหรือไม่'
+    - '&fหากใช่ ให้กดปุ่ม&aสีเขียว &fและทำการซื้อ'
+    - '&fหากไม่ใช่ ให้กดปุ่ม&cสีแดง &fและทำการยกเลิก'
+
+  #Message that will send to player when they have not enough inventory
+  Not-Enough-Inventory: '&cช่องเก็บของในตัวคุณไม่เพียงพอ'
+  #Message that will send to player when they have not enough money
+  Not-Enough-Money: '&cไม่สามารถซื้อได้เนื่องจากคุณมีเงินไม่เพียงพอ!'
+  #Message that will sebd to player when they buy a furniture
+  Succeeded: '&fคุณได้ซื้อ &e<item> &fเรียบร้อยแล้ว!'
+
+  #Confirmation page GUI Name
+  Confirmation-GUI-Name: '&1Buying Confirmation'
+  #Main shop GUI Name
+  Shop-GUI-Name: '&1Furniture Shop'
+
+#This defines what item will show in the main shop (only support ItemsAdder)
+#Example
+#Shop:
+# Example:
+#   ID: namespace:myitem
+#   Price: 1000
+Shop:
+  '1':
+    ID: itembound:stove_gray
+    Price: 2800

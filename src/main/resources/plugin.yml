@@ -1,0 +1,21 @@
+name: FurnitureShop
+version: '${version}'
+main: com.develop.devfurniture.DevFurniture
+api-version: 1.18
+prefix: FurnitureShop
+depend: [ ItemsAdder, Vault, WorldGuard, Item-Serial-Number]
+softdepend: [ Item-Serial-Number ]
+authors: [ Teenkung123 ]
+commands:
+  furniture-shop:
+    description: "Command for open Furniture Shop GUI or Reload Furniture Shop"
+    aliases:
+      - FurnitureShop
+
+permissions:
+  FurnitureShop.command:
+    description: "Permission that able to open furniture shop from anywhere"
+    default: op
+  FurnitureShop.reload:
+    description: "Permission that able to reload furniture shop"
+    default: op
