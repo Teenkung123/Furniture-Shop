@@ -35,6 +35,8 @@ public class ShopEvent implements Listener {
                         inv.setItem(13, item);
                         event.getWhoClicked().openInventory(inv);
                     } else if (event.getClick().isLeftClick()) {
+                        event.getWhoClicked().closeInventory();
+                        event.getWhoClicked().sendMessage(colorize(ConfigLoader.getConfig().getString("Language.Preview-Message", "&fYou have started preview furniture of <item>").replace("<item>", colorize(new ItemBuilder(ConfigLoader.getFurnitureCustomStack().get(builder.getStringNBT("ShopKey")).getItemStack()).getDisplayName()))));
                         PreviewItem.removePreviewFromLocation(ConfigLoader.getPreviewLocation());
                         PreviewItem.addPreviewItem(ConfigLoader.getFurnitureCustomStack().get(builder.getStringNBT("ShopKey")).getNamespacedID(), ConfigLoader.getPreviewLocation());
                     }

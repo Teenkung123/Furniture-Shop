@@ -100,7 +100,7 @@ public class ConfigLoader {
                 FurniturePrice.put(key, DevFurniture.getInstance().getConfig().getDouble("Shop." + key + ".Price", 1000000));
                 FurnitureKeyList.add(key);
 
-                System.out.println(colorize("&eLoaded furniture id " + key + " with NameSpace " + stack.getNamespacedID()));
+                //System.out.println(colorize("&eLoaded furniture id " + key + " with NameSpace " + stack.getNamespacedID()));
 
             } else {
                 System.out.println(colorize("&cCould not load Shop With ID " + key + " Because that NameSpace Does not Exist"));
@@ -111,19 +111,19 @@ public class ConfigLoader {
                 .setDisplayName(DevFurniture.getInstance().getConfig().getString("Items.NextPage.Name", "&aNext Page"))
                 .setModelData(DevFurniture.getInstance().getConfig().getInt("Items.NextPage.ModelData", 0))
                 .setStringNBT("IsNext", "true")
-                .setLoreByArray(colorizeArray(new ArrayList<>(DevFurniture.getInstance().getConfig().getStringList("Items.NextPage.Lore"))));;
+                .setLoreByArray(colorizeArray(new ArrayList<>(DevFurniture.getInstance().getConfig().getStringList("Items.NextPage.Lore"))));
 
         PreviousStack = new ItemBuilder(Material.getMaterial(DevFurniture.getInstance().getConfig().getString("Items.PreviousPage.Item", "STONE")), 1)
                 .setDisplayName(DevFurniture.getInstance().getConfig().getString("Items.PreviousPage.Name", "&cPrevious Page"))
                 .setModelData(DevFurniture.getInstance().getConfig().getInt("Items.PreviousPage.ModelData", 0))
                 .setStringNBT("IsPrevious", "true")
-                .setLoreByArray(colorizeArray(new ArrayList<>(DevFurniture.getInstance().getConfig().getStringList("Items.PreviousPage.Lore"))));;
+                .setLoreByArray(colorizeArray(new ArrayList<>(DevFurniture.getInstance().getConfig().getStringList("Items.PreviousPage.Lore"))));
 
         AcceptStack = new ItemBuilder(Material.getMaterial(DevFurniture.getInstance().getConfig().getString("Items.Accept.Item", "STONE")), 1)
                 .setDisplayName(DevFurniture.getInstance().getConfig().getString("Items.Accept.Name", "&aNext Page"))
                 .setModelData(DevFurniture.getInstance().getConfig().getInt("Items.Accept.ModelData", 0))
                 .setStringNBT("IsAccept", "true")
-                .setLoreByArray(colorizeArray(new ArrayList<>(DevFurniture.getInstance().getConfig().getStringList("Items.Accept.Lore"))));;
+                .setLoreByArray(colorizeArray(new ArrayList<>(DevFurniture.getInstance().getConfig().getStringList("Items.Accept.Lore"))));
 
         DenyStack = new ItemBuilder(Material.getMaterial(DevFurniture.getInstance().getConfig().getString("Items.Deny.Item", "STONE")), 1)
                 .setDisplayName(DevFurniture.getInstance().getConfig().getString("Items.Deny.Name", "&cPrevious Page"))

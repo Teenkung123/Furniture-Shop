@@ -32,7 +32,7 @@ public class PageChange implements Listener {
                 }
                 if (builder.getStringNBT("IsPrevious").equalsIgnoreCase("true")) {
                     int Page = builder.getIntegerNBT("Page") - 1;
-                    if (Page >= 0) {
+                    if (Page > 0) {
                         event.getWhoClicked().openInventory(ShopLoader.getGUI().get(Page-1));
                         ShopLoader.getPlayerPage().replace((Player) event.getWhoClicked(), Page-1);
                     }

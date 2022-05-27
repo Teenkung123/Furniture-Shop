@@ -57,8 +57,10 @@ Language:
   Not-Enough-Inventory: '&cช่องเก็บของในตัวคุณไม่เพียงพอ'
   #Message that will send to player when they have not enough money
   Not-Enough-Money: '&cไม่สามารถซื้อได้เนื่องจากคุณมีเงินไม่เพียงพอ!'
-  #Message that will sebd to player when they buy a furniture
+  #Message that will send to player when they buy a furniture
   Succeeded: '&fคุณได้ซื้อ &e<item> &fเรียบร้อยแล้ว!'
+  #Message that will send to player when they press preview mode button
+  Preview-Message: '&fคุณได้เริ่มการดูตัวอย่างของ &e<item> &fแล้ว'
 
   #Confirmation page GUI Name
   Confirmation-GUI-Name: '&1Buying Confirmation'
