@@ -30,9 +30,9 @@ public class PreviewItem {
         if (Location.getWorld() != null) {
             for (Entity entity : Location.getWorld().getNearbyEntities(Location, 1, 1, 1)) {
                 if (entity.getType().equals(EntityType.ARMOR_STAND)) {
-                    if (CustomFurniture.byAlreadySpawned((ArmorStand) entity) != null) {
-                        entity.remove();
-                    }
+                    //if (CustomFurniture.byAlreadySpawned((ArmorStand) entity) != null) {
+                    entity.remove();
+                    //}
                 }
             }
         }

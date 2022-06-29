@@ -26,6 +26,7 @@ public class ItemBuilder {
     }
 
     public ItemBuilder(ItemStack stack) {
+        if (stack == null || stack.getType().equals(Material.AIR)) { stack = new ItemStack(Material.STONE); }
         this.itemStack = stack;
         this.itemMeta = this.itemStack.getItemMeta();
         this.itemNBT = new NBTItem(this.itemStack);
@@ -127,10 +128,13 @@ public class ItemBuilder {
     }
 
     public ItemBuilder addLore(ArrayList<String> addedLore) {
-        ArrayList<String> lore = new ArrayList<>();
-        lore.addAll(this.itemMeta.getLore());
-        lore.addAll(addedLore);
-        this.itemMeta.setLore(lore);
+        if (this.itemMeta.getLore() == null) { this.itemMeta.setLore(addedLore); }
+        else{
+            ArrayList<String> lore = new ArrayList<>();
+            lore.addAll(this.itemMeta.getLore());
+            lore.addAll(addedLore);
+            this.itemMeta.setLore(lore);
+        }
         return this;
     }
 }

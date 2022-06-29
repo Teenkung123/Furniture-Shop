@@ -7,10 +7,12 @@ import com.develop.devfurniture.Utils.ItemBuilder;
 import dev.lone.itemsadder.api.CustomStack;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 
 import static com.develop.devfurniture.DevFurniture.colorize;
@@ -19,8 +21,12 @@ public class BuyConfirmationEvent implements Listener {
 
     @EventHandler
     public void onConfirmationClick(InventoryClickEvent event) {
+        if (event.getCurrentItem() == null) { return; }
+        if (event.getCurrentItem().getType() == Material.AIR) { return; }
+        if (event.getClickedInventory() == null) { return; }
         if (event.getView().getTitle().equalsIgnoreCase(colorize(ConfigLoader.getConfirmationGUIName()))) {
             event.setCancelled(true);
+            if(event.getClickedInventory().getType() == InventoryType.PLAYER){ return;}
             Player player = (Player) event.getWhoClicked();
             if (!DevFurniture.getEnabled()) {
                 event.getWhoClicked().sendMessage(colorize("&cPlease wait until Plugin is done load data!"));

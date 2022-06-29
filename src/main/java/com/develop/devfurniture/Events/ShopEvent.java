@@ -5,9 +5,11 @@ import com.develop.devfurniture.Loader.ConfigLoader;
 import com.develop.devfurniture.Loader.ConfirmationGUILoader;
 import com.develop.devfurniture.Utils.ItemBuilder;
 import com.develop.devfurniture.Utils.PreviewItem;
+import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -17,8 +19,12 @@ public class ShopEvent implements Listener {
 
     @EventHandler
     public void onShopInteract(InventoryClickEvent event) {
+        if (event.getCurrentItem() == null) { return; }
+        if (event.getCurrentItem().getType() == Material.AIR) { return; }
         if (event.getView().getTitle().equalsIgnoreCase(colorize(ConfigLoader.getShopGUIName()))) {
             event.setCancelled(true);
+            if (event.getClickedInventory() == null) { return; }
+            if(event.getClickedInventory().getType() == InventoryType.PLAYER){ return;}
             if (!DevFurniture.getEnabled()) {
                 event.getWhoClicked().sendMessage(colorize("&cPlease wait until Plugin is done load data!"));
                 return;
