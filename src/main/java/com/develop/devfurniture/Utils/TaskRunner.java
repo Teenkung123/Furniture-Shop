@@ -5,6 +5,8 @@ import com.develop.devfurniture.Loader.ConfigLoader;
 import com.develop.devfurniture.Loader.WorldGuardLoader;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 public class TaskRunner {
@@ -20,8 +22,18 @@ public class TaskRunner {
                         }
                     }
                 }
-                PreviewItem.removePreviewFromLocation(ConfigLoader.getPreviewLocation());
-                PreviewItem.addPreviewItem(ConfigLoader.getRandomFurniture(), ConfigLoader.getPreviewLocation());
+                World world = ConfigLoader.getPreviewLocation().getWorld();
+                if (world == null) { return; }
+                int playerAmount = 0;
+                for (Entity entity : world.getNearbyEntities(ConfigLoader.getPreviewLocation(), ConfigLoader.getCheckDistance(), ConfigLoader.getCheckDistance(), ConfigLoader.getCheckDistance())) {
+                    if (entity instanceof Player) {
+                        playerAmount++;
+                    }
+                }
+                if (playerAmount > 0) {
+                    PreviewItem.removePreviewFromLocation(ConfigLoader.getPreviewLocation());
+                    PreviewItem.addPreviewItem(ConfigLoader.getRandomFurniture(), ConfigLoader.getPreviewLocation());
+                }
             }
         }, 40, 40);
     }

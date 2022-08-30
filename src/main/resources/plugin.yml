@@ -4,7 +4,6 @@ main: com.develop.devfurniture.DevFurniture
 api-version: 1.18
 prefix: FurnitureShop
 depend: [ ItemsAdder, Vault, WorldGuard, Item-Serial-Number]
-softdepend: [ Item-Serial-Number ]
 authors: [ Teenkung123 ]
 commands:
   furniture-shop:

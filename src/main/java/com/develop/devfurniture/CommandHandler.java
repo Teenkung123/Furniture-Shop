@@ -7,8 +7,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.time.Instant;
-
 import static com.develop.devfurniture.DevFurniture.colorize;
 
 public class CommandHandler implements CommandExecutor {

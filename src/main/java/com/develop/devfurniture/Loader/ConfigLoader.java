@@ -36,6 +36,8 @@ public class ConfigLoader {
     private static Location PreviewLocation;
     private static String WorldGuardArea;
 
+    private static Integer CheckDistance;
+
     //====================================================================================
 
     public static ArrayList<String> getFurnitureKeyList() { return FurnitureKeyList; }
@@ -52,6 +54,8 @@ public class ConfigLoader {
     public static FileConfiguration getConfig() { return DevFurniture.getInstance().getConfig(); }
     public static Location getPreviewLocation() { return PreviewLocation; }
     public static String getWorldGuardArea() { return WorldGuardArea; }
+
+    public static Integer getCheckDistance() { return CheckDistance; }
 
     //====================================================================================
 
@@ -84,6 +88,8 @@ public class ConfigLoader {
 
         PreviewLocation = null;
         WorldGuardArea = null;
+
+        CheckDistance = null;
 
         ShopLoader.clearShop();
         WorldGuardLoader.clearWorldGuard();
@@ -140,6 +146,8 @@ public class ConfigLoader {
 
         WorldGuardArea = getConfig().getString("Location.Region");
         PreviewLocation = new Location(Bukkit.getWorld(getConfig().getString("Location.Preview.World", "spawn")), getConfig().getDouble("Location.Preview.X"), getConfig().getDouble("Location.Preview.Y"), getConfig().getDouble("Location.Preview.Z"), 0, 0);
+
+        CheckDistance = getConfig().getInt("Location.CheckDistance", 25);
 
         System.out.println(colorize("&aLoaded Complete! &aTook &e" + (System.currentTimeMillis() - ms) + "&a ms"));
 

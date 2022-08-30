@@ -10,6 +10,8 @@ Location:
     X: -196.5
     Y: 71
     Z: 237.5
+  #if amount of player in this radius is less than 1 the system will not preview the furniture
+  checkDistance: 25
 
 Items:
   NextPage:
