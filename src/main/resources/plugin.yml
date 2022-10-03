@@ -1,7 +1,7 @@
 name: FurnitureShop
 version: '${version}'
 main: com.develop.devfurniture.DevFurniture
-api-version: 1.18
+api-version: 1.19
 prefix: FurnitureShop
 depend: [ ItemsAdder, Vault, WorldGuard, Item-Serial-Number]
 authors: [ Teenkung123 ]

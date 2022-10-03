@@ -30,6 +30,8 @@ public class PreviewItem {
             for (Entity entity : Location.getWorld().getNearbyEntities(Location, 1, 1, 1)) {
                 if (entity.getType().equals(EntityType.ARMOR_STAND)) {
                     entity.remove();
+                } else if (entity.getType().equals(EntityType.ITEM_FRAME)) {
+                    entity.remove();
                 }
             }
         }
