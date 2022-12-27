@@ -9,6 +9,8 @@ import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -23,14 +25,23 @@ public final class DevFurniture extends JavaPlugin {
     private static DevFurniture Instance;
     private static Boolean Enabled = false;
 
+    private static Boolean EnabledPlayerPoints = false;
     //This defines all Vault API Thing please don't touch
     private static final Logger log = Logger.getLogger("Minecraft");
     private static Economy econ;
     private static Permission perms;
     private static Chat chat;
 
+
     @Override
     public void onEnable() {
+
+        Plugin playerPointsJ = Bukkit.getPluginManager().getPlugin("PlayerPoints");
+        if (playerPointsJ != null) {
+            if (playerPointsJ.isEnabled()) {
+                EnabledPlayerPoints = true;
+            }
+        }
 
         //This
         if (!setupEconomy() ) {

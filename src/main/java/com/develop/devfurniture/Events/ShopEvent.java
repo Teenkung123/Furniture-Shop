@@ -22,13 +22,7 @@ public class ShopEvent implements Listener {
         if (event.getCurrentItem() == null) { return; }
         if (event.getCurrentItem().getType() == Material.AIR) { return; }
         if (event.getView().getTitle().equalsIgnoreCase(colorize(ConfigLoader.getShopGUIName()))) {
-            event.setCancelled(true);
-            if (event.getClickedInventory() == null) { return; }
-            if(event.getClickedInventory().getType() == InventoryType.PLAYER){ return;}
-            if (!DevFurniture.getEnabled()) {
-                event.getWhoClicked().sendMessage(colorize("&cPlease wait until Plugin is done load data!"));
-                return;
-            }
+            if (cancelEvent(event)) return;
             if (event.getSlot() >= 9 && event.getSlot() <= 44 && event.getCurrentItem() != null) {
                 ItemBuilder builder = new ItemBuilder(event.getCurrentItem());
                 if (builder.getStringNBT("ShopKey") != null) {
@@ -49,6 +43,21 @@ public class ShopEvent implements Listener {
                 }
             }
         }
+    }
+
+    static boolean cancelEvent(InventoryClickEvent event) {
+        event.setCancelled(true);
+        if (event.getClickedInventory() == null) {
+            return true;
+        }
+        if(event.getClickedInventory().getType() == InventoryType.PLAYER){
+            return true;
+        }
+        if (!DevFurniture.getEnabled()) {
+            event.getWhoClicked().sendMessage(colorize("&cPlease wait until Plugin is done load data!"));
+            return true;
+        }
+        return false;
     }
 
 }

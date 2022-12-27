@@ -1,6 +1,7 @@
 package com.develop.devfurniture.Loader;
 
 import com.develop.devfurniture.DevFurniture;
+import com.develop.devfurniture.Utils.EconomyType;
 import com.develop.devfurniture.Utils.ItemBuilder;
 import dev.lone.itemsadder.api.CustomStack;
 import org.bukkit.Bukkit;
@@ -21,6 +22,7 @@ public class ConfigLoader {
     private static final ArrayList<String> FurnitureKeyList = new ArrayList<>();
     private static final HashMap<String, CustomStack> FurnitureCustomStack = new HashMap<>();
     private static final HashMap<String, Double> FurniturePrice = new HashMap<>();
+    private static final HashMap<String, EconomyType> economyType = new HashMap<>();
 
     private static String ShopGUIName;
     private static ArrayList<String> ShopGUILore;
@@ -43,6 +45,7 @@ public class ConfigLoader {
     public static ArrayList<String> getFurnitureKeyList() { return FurnitureKeyList; }
     public static HashMap<String, CustomStack> getFurnitureCustomStack() { return FurnitureCustomStack; }
     public static HashMap<String, Double> getFurniturePrice() { return FurniturePrice; }
+    public static HashMap<String, EconomyType> getEconomyType() { return economyType; }
     public static String getShopGUIName() { return ShopGUIName; }
     public static ArrayList<String> getShopGUILore() { return ShopGUILore; }
     public static String getConfirmationGUIName() { return ConfirmationGUIName; }
@@ -65,7 +68,6 @@ public class ConfigLoader {
         ShopLoader.loadShop();
         DevFurniture.setEnabled(true);
     }
-
 
     public static void clearConfigData() {
 
@@ -104,10 +106,9 @@ public class ConfigLoader {
             if (stack != null) {
                 FurnitureCustomStack.put(key, stack);
                 FurniturePrice.put(key, DevFurniture.getInstance().getConfig().getDouble("Shop." + key + ".Price", 1000000));
+                EconomyType type = EconomyType.valueOf(DevFurniture.getInstance().getConfig().getString("Shop." + key + ".Currency", "Vault"));
+
                 FurnitureKeyList.add(key);
-
-                //System.out.println(colorize("&eLoaded furniture id " + key + " with NameSpace " + stack.getNamespacedID()));
-
             } else {
                 System.out.println(colorize("&cCould not load Shop With ID " + key + " Because that NameSpace Does not Exist"));
             }

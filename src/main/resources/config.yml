@@ -74,8 +74,10 @@ Language:
 #Shop:
 # Example:
 #   ID: namespace:myitem
+#   Currency: PlayerPoints (Available PlayerPoints, Value)
 #   Price: 1000
 Shop:
   '1':
     ID: itembound:stove_gray
+    Currency:
     Price: 2800

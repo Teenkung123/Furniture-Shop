@@ -69,20 +69,7 @@ public class OpenShopEvent implements Listener {
                             player.sendMessage(colorize("&cPlease wait until Plugin is done load data!"));
                             return;
                         }
-                        if (ShopLoader.getPlayerPage().containsKey(player)) {
-                            if (ShopLoader.getPlayerPage().get(player) > ShopLoader.getMaxPage() - 1) {
-                                player.openInventory(ShopLoader.getGUI().get(ShopLoader.getMaxPage() - 1));
-                                ShopLoader.getPlayerPage().replace(player, ShopLoader.getMaxPage() - 1);
-                            } else if (ShopLoader.getPlayerPage().get(player) < 0) {
-                                player.openInventory(ShopLoader.getGUI().get(0));
-                                ShopLoader.getPlayerPage().replace(player, 0);
-                            } else {
-                                player.openInventory(ShopLoader.getGUI().get(ShopLoader.getPlayerPage().get(player)));
-                            }
-                        } else {
-                            player.openInventory(ShopLoader.getGUI().get(0));
-                            ShopLoader.getPlayerPage().put(player, 0);
-                        }
+                        BuyConfirmationEvent.changePageInventory(player);
                     }
                 }
             }

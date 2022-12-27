@@ -58,21 +58,25 @@ public class BuyConfirmationEvent implements Listener {
                     }
                 }
             } else if (new ItemBuilder(event.getCurrentItem()).getStringNBT("IsDeny").equalsIgnoreCase("true")) {
-                if (ShopLoader.getPlayerPage().containsKey(player)) {
-                    if (ShopLoader.getPlayerPage().get(player) > ShopLoader.getMaxPage() - 1) {
-                        player.openInventory(ShopLoader.getGUI().get(ShopLoader.getMaxPage() - 1));
-                        ShopLoader.getPlayerPage().replace(player, ShopLoader.getMaxPage() - 1);
-                    } else if (ShopLoader.getPlayerPage().get(player) < 0) {
-                        player.openInventory(ShopLoader.getGUI().get(0));
-                        ShopLoader.getPlayerPage().replace(player, 0);
-                    } else {
-                        player.openInventory(ShopLoader.getGUI().get(ShopLoader.getPlayerPage().get(player)));
-                    }
-                } else {
-                    player.openInventory(ShopLoader.getGUI().get(0));
-                    ShopLoader.getPlayerPage().put(player, 0);
-                }
+                changePageInventory(player);
             }
+        }
+    }
+
+    public static void changePageInventory(Player player) {
+        if (ShopLoader.getPlayerPage().containsKey(player)) {
+            if (ShopLoader.getPlayerPage().get(player) > ShopLoader.getMaxPage() - 1) {
+                player.openInventory(ShopLoader.getGUI().get(ShopLoader.getMaxPage() - 1));
+                ShopLoader.getPlayerPage().replace(player, ShopLoader.getMaxPage() - 1);
+            } else if (ShopLoader.getPlayerPage().get(player) < 0) {
+                player.openInventory(ShopLoader.getGUI().get(0));
+                ShopLoader.getPlayerPage().replace(player, 0);
+            } else {
+                player.openInventory(ShopLoader.getGUI().get(ShopLoader.getPlayerPage().get(player)));
+            }
+        } else {
+            player.openInventory(ShopLoader.getGUI().get(0));
+            ShopLoader.getPlayerPage().put(player, 0);
         }
     }
 }
