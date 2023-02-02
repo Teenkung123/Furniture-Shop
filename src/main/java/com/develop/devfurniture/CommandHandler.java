@@ -15,14 +15,7 @@ public class CommandHandler implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 1) {
             if (args[0].equalsIgnoreCase("open")) {
-                if (sender instanceof Player player) {
-                    if (!player.hasPermission("FurnitureShop.open")) { return false; }
-                    if (!DevFurniture.getEnabled()) {
-                        player.sendMessage(colorize("&cPlease wait until Plugin is done load data!"));
-                        return false;
-                    }
-                    BuyConfirmationEvent.changePageInventory(player);
-                }
+                if (checkDataLoad(sender)) return false;
             } else if (args[0].equalsIgnoreCase("reload")) {
                 if (!sender.hasPermission("FurnitureShop.reload")) { return false; }
                 long ms = System.currentTimeMillis();
@@ -33,14 +26,21 @@ public class CommandHandler implements CommandExecutor {
                 sender.sendMessage(colorize("&aReload Complete!\n&aTook &e" + (System.currentTimeMillis() - ms) + "&a ms"));
             }
         } else {
-            if (sender instanceof Player player) {
-                if (!player.hasPermission("FurnitureShop.open")) { return false; }
-                if (!DevFurniture.getEnabled()) {
-                    player.sendMessage(colorize("&cPlease wait until Plugin is done load data!"));
-                    return false;
-                }
-                BuyConfirmationEvent.changePageInventory(player);
+            if (checkDataLoad(sender)) return false;
+        }
+        return false;
+    }
+
+    private boolean checkDataLoad(CommandSender sender) {
+        if (sender instanceof Player player) {
+            if (!player.hasPermission("FurnitureShop.open")) {
+                return true;
             }
+            if (!DevFurniture.getEnabled()) {
+                player.sendMessage(colorize("&cPlease wait until Plugin is done load data!"));
+                return true;
+            }
+            BuyConfirmationEvent.changePageInventory(player);
         }
         return false;
     }

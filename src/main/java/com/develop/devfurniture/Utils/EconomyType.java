@@ -1,7 +1,7 @@
 package com.develop.devfurniture.Utils;
 
 public enum EconomyType {
-    PLAYERPOINTS, VAULT, UNKNOWN;
+    PLAYERPOINTS, VAULT, BOTH, UNKNOWN;
 
     public static EconomyType fromString(String str) {
         try {

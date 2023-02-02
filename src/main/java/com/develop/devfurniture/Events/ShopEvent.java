@@ -3,6 +3,7 @@ package com.develop.devfurniture.Events;
 import com.develop.devfurniture.DevFurniture;
 import com.develop.devfurniture.Loader.ConfigLoader;
 import com.develop.devfurniture.Loader.ConfirmationGUILoader;
+import com.develop.devfurniture.Utils.EconomyType;
 import com.develop.devfurniture.Utils.ItemBuilder;
 import com.develop.devfurniture.Utils.PreviewItem;
 import org.bukkit.Material;
@@ -13,7 +14,10 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+
 import static com.develop.devfurniture.DevFurniture.colorize;
+import static com.develop.devfurniture.DevFurniture.colorizeArray;
 
 public class ShopEvent implements Listener {
 
@@ -28,9 +32,25 @@ public class ShopEvent implements Listener {
                 if (builder.getStringNBT("ShopKey") != null) {
                     if (event.getClick().isLeftClick() && event.getClick().isShiftClick()) {
                         Inventory inv = ConfirmationGUILoader.getConfirmationGUI();
+                        String key = builder.getStringNBT("ShopKey");
+                        String tag;
+                        if (ConfigLoader.getEconomyType().get(key).equals(EconomyType.BOTH)) {
+                            tag = ConfigLoader.getConfig().getString("Language.Both", "")
+                                    .replace("<vault>", ConfigLoader.getFurniturePrice().get(key) + ConfigLoader.getConfig().getString("Language.Vault"))
+                                    .replace("<playerpoints>", ConfigLoader.getFurniturePricePlayerPoints().get(key) + ConfigLoader.getConfig().getString("Language.PlayerPoints"));
+                        } else if (ConfigLoader.getEconomyType().get(key).equals(EconomyType.PLAYERPOINTS)) {
+                            tag = ConfigLoader.getConfig().getString("Language.Single", "")
+                                    .replace("<price>", ConfigLoader.getFurniturePricePlayerPoints().get(key) + ConfigLoader.getConfig().getString("Language.PlayerPoints"));
+                        } else {
+                            tag = ConfigLoader.getConfig().getString("Language.Single", "")
+                                    .replace("<price>", ConfigLoader.getFurniturePrice().getOrDefault(key, 100000D) + ConfigLoader.getConfig().getString("Language.Vault", ""));
+                        }
+                        ArrayList<String> lores = new ArrayList<>();
+                        lores.add(tag);
+                        lores.addAll(ConfigLoader.getConfirmationGUILore());
                         ItemStack item = new ItemBuilder(ConfigLoader.getFurnitureCustomStack().get(builder.getStringNBT("ShopKey")).getItemStack().clone())
                                 .setStringNBT("ShopKey", builder.getStringNBT("ShopKey"))
-                                .addLore(DevFurniture.colorizeArray(DevFurniture.replaceArray(ConfigLoader.getConfirmationGUILore(), "<price>", ConfigLoader.getFurniturePrice().get(builder.getStringNBT("ShopKey")).toString())))
+                                .addLore(colorizeArray(lores))
                                 .build();
                         inv.setItem(13, item);
                         event.getWhoClicked().openInventory(inv);

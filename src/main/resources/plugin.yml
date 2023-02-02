@@ -3,7 +3,8 @@ version: '${version}'
 main: com.develop.devfurniture.DevFurniture
 api-version: 1.19
 prefix: FurnitureShop
-depend: [ ItemsAdder, Vault, WorldGuard, Item-Serial-Number]
+depend: [ ItemsAdder, Vault, WorldGuard ]
+softdepend: [Item-Serial-Number, PlayerPoints]
 authors: [ Teenkung123 ]
 commands:
   furniture-shop:

@@ -7,9 +7,9 @@ Location:
   #Location defines where Furniture preview is
   Preview:
     World: spawn
-    X: -196.5
-    Y: 71
-    Z: 237.5
+    X: 0
+    Y: 0
+    Z: 0
   #if amount of player in this radius is less than 1 the system will not preview the furniture
   checkDistance: 25
 
@@ -42,14 +42,12 @@ Language:
 
   #Lore in main shop
   Shop-Lore:
-    - '&fราคา &e$<price>'
     - ' '
     - '&fคลิกซ้ายเพื่อดูตัวอย่างเฟอร์นิเจอร์'
     - '&aกดย่อ&fและคลิกซ้าย&bเพื่อซื้อ'
 
   #Lore in confirmation page
   Confirmation-Lore:
-    - '&fราคา &e$<price>'
     - ' '
     - '&fนี่คือไอเท็มที่คุณต้องการซื้อหรือไม่'
     - '&fหากใช่ ให้กดปุ่ม&aสีเขียว &fและทำการซื้อ'
@@ -68,16 +66,26 @@ Language:
   Confirmation-GUI-Name: '&1Buying Confirmation'
   #Main shop GUI Name
   Shop-GUI-Name: '&1Furniture Shop'
+  #Vault currency
+  Vault: $
+  #PlayerPoints Currency
+  PlayerPoints: พ้อย
+  #Single Currency
+  Single: '&fราคา &e<price>'
+  #Supports both currency
+  Both: "ราคา <vault> หรือ <playerpoints> &c(หากเงินไม่พอจะใช้พ้อยแทน)"
 
 #This defines what item will show in the main shop (only support ItemsAdder)
 #Example
 #Shop:
 # Example:
 #   ID: namespace:myitem
-#   Currency: PlayerPoints (Available PlayerPoints, Value)
-#   Price: 1000
+#   Currency: PlayerPoints (Available PlayerPoints, Vault, Both)
+#   Vault: 1000
+#   PlayerPoints: 10
 Shop:
   '1':
     ID: itembound:stove_gray
-    Currency:
-    Price: 2800
+    Currency: Vault
+    Vault: 2800
+    PlayerPoints: 100

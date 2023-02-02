@@ -7,10 +7,10 @@ import dev.lone.itemsadder.api.ItemsAdder;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
+import org.black_ixx.playerpoints.PlayerPoints;
+import org.black_ixx.playerpoints.PlayerPointsAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -26,6 +26,7 @@ public final class DevFurniture extends JavaPlugin {
     private static Boolean Enabled = false;
 
     private static Boolean EnabledPlayerPoints = false;
+    private static PlayerPointsAPI playerPointsAPI;
     //This defines all Vault API Thing please don't touch
     private static final Logger log = Logger.getLogger("Minecraft");
     private static Economy econ;
@@ -36,12 +37,13 @@ public final class DevFurniture extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        Plugin playerPointsJ = Bukkit.getPluginManager().getPlugin("PlayerPoints");
-        if (playerPointsJ != null) {
-            if (playerPointsJ.isEnabled()) {
+        if (Bukkit.getPluginManager().isPluginEnabled("PlayerPoints")) {
+            playerPointsAPI = PlayerPoints.getInstance().getAPI();
+            if (playerPointsAPI != null) {
                 EnabledPlayerPoints = true;
             }
         }
+
 
         //This
         if (!setupEconomy() ) {
@@ -86,6 +88,14 @@ public final class DevFurniture extends JavaPlugin {
         reloadConfig();
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
+    }
+
+    public static PlayerPointsAPI getPlayerPointsAPI() {
+        if (EnabledPlayerPoints) {
+            return playerPointsAPI;
+        } else {
+            throw new NullPointerException("playerPoints API is not enabled!");
+        }
     }
 
     public static DevFurniture getInstance() { return Instance; }

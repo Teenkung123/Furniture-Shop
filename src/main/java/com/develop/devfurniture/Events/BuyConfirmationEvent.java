@@ -3,6 +3,7 @@ package com.develop.devfurniture.Events;
 import com.develop.devfurniture.DevFurniture;
 import com.develop.devfurniture.Loader.ConfigLoader;
 import com.develop.devfurniture.Loader.ShopLoader;
+import com.develop.devfurniture.Utils.EconomyType;
 import com.develop.devfurniture.Utils.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -47,14 +48,41 @@ public class BuyConfirmationEvent implements Listener {
                     if (player.getInventory().firstEmpty() == -1) {
                         player.sendMessage(colorize(ConfigLoader.getConfig().getString("Language.Not-Enough-Inventory")));
                     } else {
-                        if (DevFurniture.getEconomy().getBalance(Bukkit.getOfflinePlayer(player.getUniqueId())) >= ConfigLoader.getFurniturePrice().get(key)) {
-                            ItemStack toGive = ConfigLoader.getFurnitureCustomStack().get(key).getItemStack().clone();
-                            DevFurniture.getEconomy().withdrawPlayer(Bukkit.getOfflinePlayer(player.getUniqueId()), ConfigLoader.getFurniturePrice().get(key));
-                            player.getInventory().addItem(toGive);
-                            player.sendMessage(colorize(ConfigLoader.getConfig().getString("Language.Succeeded", "Succeeded!").replace("<item>", builder.getDisplayName())));
+
+                        if (ConfigLoader.getEconomyType().get(key).equals(EconomyType.BOTH)) {
+                            if (DevFurniture.getEconomy().getBalance(Bukkit.getOfflinePlayer(player.getUniqueId())) >= ConfigLoader.getFurniturePrice().get(key)) {
+                                ItemStack toGive = ConfigLoader.getFurnitureCustomStack().get(key).getItemStack().clone();
+                                DevFurniture.getEconomy().withdrawPlayer(Bukkit.getOfflinePlayer(player.getUniqueId()), ConfigLoader.getFurniturePrice().get(key));
+                                player.getInventory().addItem(toGive);
+                                player.sendMessage(colorize(ConfigLoader.getConfig().getString("Language.Succeeded", "Succeeded!").replace("<item>", builder.getDisplayName())));
+                            } else if (DevFurniture.getPlayerPointsAPI().look(player.getUniqueId()) >= ConfigLoader.getFurniturePricePlayerPoints().get(key)) {
+                                ItemStack toGive = ConfigLoader.getFurnitureCustomStack().get(key).getItemStack().clone();
+                                DevFurniture.getPlayerPointsAPI().take(player.getUniqueId(), ConfigLoader.getFurniturePricePlayerPoints().get(key));
+                                player.getInventory().addItem(toGive);
+                                player.sendMessage(colorize(ConfigLoader.getConfig().getString("Language.Succeeded", "Succeeded!").replace("<item>", builder.getDisplayName())));
+                            } else {
+                                player.sendMessage(colorize(ConfigLoader.getConfig().getString("Language.Not-Enough-Money")));
+                            }
+
+                        } else if (ConfigLoader.getEconomyType().get(key).equals(EconomyType.PLAYERPOINTS)) {
+                            if (DevFurniture.getPlayerPointsAPI().look(player.getUniqueId()) >= ConfigLoader.getFurniturePricePlayerPoints().get(key)) {
+                                ItemStack toGive = ConfigLoader.getFurnitureCustomStack().get(key).getItemStack().clone();
+                                DevFurniture.getPlayerPointsAPI().take(player.getUniqueId(), ConfigLoader.getFurniturePricePlayerPoints().get(key));
+                                player.getInventory().addItem(toGive);
+                                player.sendMessage(colorize(ConfigLoader.getConfig().getString("Language.Succeeded", "Succeeded!").replace("<item>", builder.getDisplayName())));
+                            } else {
+                                player.sendMessage(colorize(ConfigLoader.getConfig().getString("Language.Not-Enough-Money")));
+                            }
                         } else {
-                          player.sendMessage(colorize(ConfigLoader.getConfig().getString("Language.Not-Enough-Money")));
-                      }
+                            if (DevFurniture.getEconomy().getBalance(Bukkit.getOfflinePlayer(player.getUniqueId())) >= ConfigLoader.getFurniturePrice().get(key)) {
+                                ItemStack toGive = ConfigLoader.getFurnitureCustomStack().get(key).getItemStack().clone();
+                                DevFurniture.getEconomy().withdrawPlayer(Bukkit.getOfflinePlayer(player.getUniqueId()), ConfigLoader.getFurniturePrice().get(key));
+                                player.getInventory().addItem(toGive);
+                                player.sendMessage(colorize(ConfigLoader.getConfig().getString("Language.Succeeded", "Succeeded!").replace("<item>", builder.getDisplayName())));
+                            } else {
+                                player.sendMessage(colorize(ConfigLoader.getConfig().getString("Language.Not-Enough-Money")));
+                            }
+                        }
                     }
                 }
             } else if (new ItemBuilder(event.getCurrentItem()).getStringNBT("IsDeny").equalsIgnoreCase("true")) {

@@ -22,6 +22,7 @@ public class ConfigLoader {
     private static final ArrayList<String> FurnitureKeyList = new ArrayList<>();
     private static final HashMap<String, CustomStack> FurnitureCustomStack = new HashMap<>();
     private static final HashMap<String, Double> FurniturePrice = new HashMap<>();
+    private static final HashMap<String, Integer> FurniturePricePlayerPoints = new HashMap<>();
     private static final HashMap<String, EconomyType> economyType = new HashMap<>();
 
     private static String ShopGUIName;
@@ -45,6 +46,7 @@ public class ConfigLoader {
     public static ArrayList<String> getFurnitureKeyList() { return FurnitureKeyList; }
     public static HashMap<String, CustomStack> getFurnitureCustomStack() { return FurnitureCustomStack; }
     public static HashMap<String, Double> getFurniturePrice() { return FurniturePrice; }
+    public static HashMap<String, Integer> getFurniturePricePlayerPoints() { return FurniturePricePlayerPoints; }
     public static HashMap<String, EconomyType> getEconomyType() { return economyType; }
     public static String getShopGUIName() { return ShopGUIName; }
     public static ArrayList<String> getShopGUILore() { return ShopGUILore; }
@@ -104,16 +106,18 @@ public class ConfigLoader {
         for (String key : Objects.requireNonNull(DevFurniture.getInstance().getConfig().getConfigurationSection("Shop")).getKeys(false)) {
             CustomStack stack = CustomStack.getInstance(DevFurniture.getInstance().getConfig().getString("Shop." + key + ".ID"));
             if (stack != null) {
+                EconomyType type = EconomyType.fromString(DevFurniture.getInstance().getConfig().getString("Shop." + key + ".Currency", "Vault"));
                 FurnitureCustomStack.put(key, stack);
-                FurniturePrice.put(key, DevFurniture.getInstance().getConfig().getDouble("Shop." + key + ".Price", 1000000));
-                EconomyType type = EconomyType.valueOf(DevFurniture.getInstance().getConfig().getString("Shop." + key + ".Currency", "Vault"));
-
+                FurniturePrice.put(key, DevFurniture.getInstance().getConfig().getDouble("Shop." + key + ".Vault", 1000000));
+                FurniturePricePlayerPoints.put(key, DevFurniture.getInstance().getConfig().getInt("Shop."+key+".PlayerPoints", 1000000));
+                economyType.put(key, type);
                 FurnitureKeyList.add(key);
             } else {
                 System.out.println(colorize("&cCould not load Shop With ID " + key + " Because that NameSpace Does not Exist"));
             }
         }
         System.out.println(colorize("&aComplete loaded total of " + FurnitureKeyList.size() + " Furniture!"));
+
         NextStack = new ItemBuilder(Material.getMaterial(DevFurniture.getInstance().getConfig().getString("Items.NextPage.Item", "STONE")), 1)
                 .setDisplayName(DevFurniture.getInstance().getConfig().getString("Items.NextPage.Name", "&aNext Page"))
                 .setModelData(DevFurniture.getInstance().getConfig().getInt("Items.NextPage.ModelData", 0))
@@ -149,6 +153,7 @@ public class ConfigLoader {
         PreviewLocation = new Location(Bukkit.getWorld(getConfig().getString("Location.Preview.World", "spawn")), getConfig().getDouble("Location.Preview.X"), getConfig().getDouble("Location.Preview.Y"), getConfig().getDouble("Location.Preview.Z"), 0, 0);
 
         CheckDistance = getConfig().getInt("Location.CheckDistance", 25);
+
 
         System.out.println(colorize("&aLoaded Complete! &aTook &e" + (System.currentTimeMillis() - ms) + "&a ms"));
 
