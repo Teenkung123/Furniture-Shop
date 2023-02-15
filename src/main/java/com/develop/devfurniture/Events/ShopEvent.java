@@ -38,12 +38,18 @@ public class ShopEvent implements Listener {
                             tag = ConfigLoader.getConfig().getString("Language.Both", "")
                                     .replace("<vault>", ConfigLoader.getFurniturePrice().get(key) + ConfigLoader.getConfig().getString("Language.Vault"))
                                     .replace("<playerpoints>", ConfigLoader.getFurniturePricePlayerPoints().get(key) + ConfigLoader.getConfig().getString("Language.PlayerPoints"));
+                            inv.setItem(16, ConfigLoader.getBuyWithVaultStack().setStringNBT("payMethod", "Vault").build());
+                            inv.setItem(17, ConfigLoader.getBuyWithPointStack().setStringNBT("payMethod", "Point").build());
                         } else if (ConfigLoader.getEconomyType().get(key).equals(EconomyType.PLAYERPOINTS)) {
                             tag = ConfigLoader.getConfig().getString("Language.Single", "")
                                     .replace("<price>", ConfigLoader.getFurniturePricePlayerPoints().get(key) + ConfigLoader.getConfig().getString("Language.PlayerPoints"));
+                            inv.setItem(16, ConfigLoader.getAcceptStack().build());
+                            inv.setItem(17, ConfigLoader.getAcceptStack().build());
                         } else {
                             tag = ConfigLoader.getConfig().getString("Language.Single", "")
                                     .replace("<price>", ConfigLoader.getFurniturePrice().getOrDefault(key, 100000D) + ConfigLoader.getConfig().getString("Language.Vault", ""));
+                            inv.setItem(16, ConfigLoader.getAcceptStack().build());
+                            inv.setItem(17, ConfigLoader.getAcceptStack().build());
                         }
                         ArrayList<String> lores = new ArrayList<>();
                         lores.add(tag);

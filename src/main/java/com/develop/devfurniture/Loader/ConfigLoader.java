@@ -35,6 +35,8 @@ public class ConfigLoader {
     private static ItemBuilder NextStack;
     private static ItemBuilder AcceptStack;
     private static ItemBuilder DenyStack;
+    private static ItemBuilder BuyWithPointStack;
+    private static ItemBuilder BuyWithVaultStack;
 
     private static Location PreviewLocation;
     private static String WorldGuardArea;
@@ -56,6 +58,8 @@ public class ConfigLoader {
     public static ItemBuilder getNextStack() { return NextStack; }
     public static ItemBuilder getAcceptStack() { return AcceptStack; }
     public static ItemBuilder getDenyStack() { return DenyStack; }
+    public static ItemBuilder getBuyWithPointStack() { return BuyWithPointStack; }
+    public static ItemBuilder getBuyWithVaultStack() { return BuyWithVaultStack; }
     public static FileConfiguration getConfig() { return DevFurniture.getInstance().getConfig(); }
     public static Location getPreviewLocation() { return PreviewLocation; }
     public static String getWorldGuardArea() { return WorldGuardArea; }
@@ -78,6 +82,8 @@ public class ConfigLoader {
         FurnitureKeyList.clear();
         FurnitureCustomStack.clear();
         FurniturePrice.clear();
+        FurniturePricePlayerPoints.clear();
+        economyType.clear();
 
         ShopGUIName = null;
         ShopGUILore = null;
@@ -89,6 +95,8 @@ public class ConfigLoader {
         NextStack = null;
         AcceptStack = null;
         DenyStack = null;
+        BuyWithPointStack = null;
+        BuyWithVaultStack = null;
 
         PreviewLocation = null;
         WorldGuardArea = null;
@@ -142,6 +150,17 @@ public class ConfigLoader {
                 .setStringNBT("IsDeny", "true")
                 .setLoreByArray(colorizeArray(new ArrayList<>(DevFurniture.getInstance().getConfig().getStringList("Items.Deny.Lore"))));
 
+        BuyWithPointStack = new ItemBuilder(Material.getMaterial(DevFurniture.getInstance().getConfig().getString("Items.BuyWithPoints.Item", "STONE")), 1)
+                .setDisplayName(DevFurniture.getInstance().getConfig().getString("Items.BuyWithPoints.Name", "&cPrevious Page"))
+                .setModelData(DevFurniture.getInstance().getConfig().getInt("Items.BuyWithPoints.ModelData", 0))
+                .setStringNBT("IsAccept", "Point")
+                .setLoreByArray(colorizeArray(new ArrayList<>(DevFurniture.getInstance().getConfig().getStringList("Items.BuyWithPoints.Lore"))));
+
+        BuyWithVaultStack = new ItemBuilder(Material.getMaterial(DevFurniture.getInstance().getConfig().getString("Items.BuyWithVault.Item", "STONE")), 1)
+                .setDisplayName(DevFurniture.getInstance().getConfig().getString("Items.BuyWithVault.Name", "&cPrevious Page"))
+                .setModelData(DevFurniture.getInstance().getConfig().getInt("Items.BuyWithVault.ModelData", 0))
+                .setStringNBT("IsAccept", "Vault")
+                .setLoreByArray(colorizeArray(new ArrayList<>(DevFurniture.getInstance().getConfig().getStringList("Items.BuyWithVault.Lore"))));
 
         ShopGUIName = DevFurniture.getInstance().getConfig().getString("Language.Shop-GUI-Name", "&1Furniture Shop");
         ConfirmationGUIName = DevFurniture.getInstance().getConfig().getString("Language.Confirmation-GUI-Name", "&1Confirmation for Buying");

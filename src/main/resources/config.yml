@@ -34,6 +34,16 @@ Items:
     Name: "&cDeny"
     Lore: []
     ModelData: 0
+  BuyWithPoints:
+    Item: MAGENTA_STAINED_GLASS_PANE
+    Name: "&dBuy With PlayerPoints"
+    Lore: []
+    ModelData: 0
+  BuyWithVault:
+    Item: LIME_STAINED_GLASS_PANE
+    Name: "&aBuy With Money"
+    Lore: []
+    ModelData: 0
 
 Language:
   #Hex color format is #ffffff
@@ -73,7 +83,7 @@ Language:
   #Single Currency
   Single: '&fราคา &e<price>'
   #Supports both currency
-  Both: "ราคา <vault> หรือ <playerpoints> &c(หากเงินไม่พอจะใช้พ้อยแทน)"
+  Both: "ราคา <vault> หรือ <playerpoints>"
 
 #This defines what item will show in the main shop (only support ItemsAdder)
 #Example
